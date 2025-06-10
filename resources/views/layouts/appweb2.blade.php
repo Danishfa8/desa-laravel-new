@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 
 <head>
     <meta charset="UTF-8">
@@ -36,10 +36,26 @@
             color: #1d4ed8;
             border-bottom-color: #f97316;
         }
+
+              /* Loading Bar Styles */
+      #loading-bar {
+         position: fixed;
+         top: 0;
+         left: 0;
+         height: 3px;
+         background: linear-gradient(to right, #4f46e5, #60a5fa);
+         z-index: 9999;
+         width: 0%;
+         transition: width 0.3s ease-out;
+         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
     </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="flex flex-col min-h-screen bg-gray-100">
+
+<!-- Loading Bar -->
+<div id="loading-bar"></div>
     <!-- Sticky White Navbar with Scroll Blur Effect -->
     <header id="navbar" class="bg-white transition-all duration-300 sticky top-0 z-50 border-b border-gray-300">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between backdrop-blur-sm">
@@ -153,8 +169,12 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-6">
-        @yield('content')
+    <main class="flex-grow container mx-auto mt-6 p-4">
+      @yield('content')
+   </main>
+
+           <!-- Footer -->
+    @include('layouts.footer')
 
         <script>
             // Mobile menu toggle
@@ -172,6 +192,11 @@
                 }
             });
         </script>
+        
+        <!-- Loading Bar Script -->
+        @vite('resources/js/loading-app.js')
 </body>
 
 </html>
+
+
