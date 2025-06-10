@@ -39,10 +39,33 @@
                         <!-- Content will be populated by JavaScript -->
                     </div>
                 </div>
-
-                <!-- Boundary Controls (ditempatkan via JS jika diperlukan) -->
             </div>
         </div>
+
+        <!-- Tambahkan style untuk mengontrol map container -->
+        <style>
+            /* Memastikan map tetap dalam container */
+            #map {
+                position: relative;
+                overflow: hidden;
+            }
+            
+            /* Memastikan popup dan control tetap dalam viewport */
+            .leaflet-popup {
+                max-height: 300px;
+                overflow-y: auto;
+            }
+            
+            .leaflet-control-layers {
+                max-height: 80vh;
+                overflow: auto;
+            }
+            
+            /* Mencegah map keluar dari container saat scroll */
+            .leaflet-container {
+                contain: strict;
+            }
+        </style>
 
         <!-- Legend -->
         <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 text-sm">
@@ -91,3 +114,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     @vite(['resources/js/app.js'])
 @endsection
+
+
