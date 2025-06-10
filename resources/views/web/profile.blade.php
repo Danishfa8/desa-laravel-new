@@ -6,27 +6,27 @@
         <p class="text-gray-600 mb-4">Informasi mengenai desa dan kelurahan...</p>
 
         <!-- Filter Section -->
-        <div class="flex items-center space-x-4 mb-6">
-            <div class="flex items-center space-x-2">
-                <label class="text-sm text-gray-700">Kecamatan</label>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:gap-4 gap-6 mt-6">
+            <div class="w-full sm:w-auto">
+                <label class="block text-gray-700 font-semibold mb-1">Kecamatan</label>
                 <select id="kecamatan"
-                    class="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+                    class="border border-gray-300 rounded-2xl px-4 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-green-500 focus:outline-none shadow-sm w-full sm:w-auto">
                     <option value="">Pilih Kecamatan</option>
                     @foreach ($kecamatans as $kecamatan)
                         <option value="{{ $kecamatan->id }}">{{ $kecamatan->nama_kecamatan }}</option>
                     @endforeach
                 </select>
             </div>
-            <div class="flex items-center space-x-2">
-                <label class="text-sm text-gray-700">Desa</label>
+            <div class="w-full sm:w-auto">
+                <label class="block text-gray-700 font-semibold mb-1">Desa</label>
                 <select id="desa"
-                    class="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+                    class="border border-gray-300 rounded-2xl px-4 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-green-500 focus:outline-none shadow-sm w-full sm:w-auto"
                     disabled>
                     <option value="">Pilih Desa</option>
                 </select>
             </div>
             <button id="tampilkan-data"
-                class="px-4 py-2 bg-green-500 text-white rounded-lg text-sm hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500">
+                class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-xl shadow font-semibold text-sm transition-all duration-200 w-full sm:w-auto">
                 Tampilkan Data
             </button>
         </div>
@@ -147,3 +147,6 @@
 
     @include('web.partials.javascript')
 @endsection
+
+
+
