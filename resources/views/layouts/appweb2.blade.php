@@ -98,14 +98,14 @@
                     <img src="{{ asset('assets/icons/peta.png') }}" alt="Peta Icon" class="w-6 h-6 mb-1">
                     Desa Dalam Peta
                 </a>
-                <a href="#"
-                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-2 hover:border-blue-500 min-w-[80px] {{ request()->is('buku-monografi') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
+                <a href="{{ route('desa-dalam-buku') }}"
+                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-2 hover:border-blue-500 min-w-[80px] {{ request()->routeIs('desa-dalam-buku') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
                     <img src="{{ asset('assets/icons/buku.png') }}" alt="Buku Icon"
                         class="w-6 h-6 mb-1">
                     Buku Monografi
                 </a>
-                <a href="#"
-                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-2 hover:border-blue-500 min-w-[80px] {{ request()->is('informasi-data') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
+                <a href="{{ route('data.informasi') }}"
+                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-2 hover:border-blue-500 min-w-[80px] {{ request()->routeIs('data.informasi') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
                     <img src="{{ asset('assets/icons/infodata.png') }}" alt="Metadata Icon"
                         class="w-6 h-6 mb-1">
                     Informasi Data
@@ -134,14 +134,14 @@
                         class="w-6 h-6 mb-1">
                     Desa Dalam Peta
                 </a>
-                <a href="#"
-                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-3 hover:border-blue-500 {{ request()->is('buku-monografi') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
+                <a href="{{ route('desa-dalam-buku') }}"
+                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-3 hover:border-blue-500 {{ request()->routeIs('desa-dalam-buku') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
                     <img src="{{ asset('assets/icons/buku.png') }}" alt="Buku Icon"
                         class="w-6 h-6 mb-1">
                     Buku Monografi
                 </a>
-                <a href="#"
-                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-3 hover:border-blue-500 {{ request()->is('informasi-data') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
+                <a href="{{ route('data.informasi') }}"
+                    class="flex flex-col items-center justify-center transition border border-gray-300 rounded-lg p-3 hover:border-blue-500 {{ request()->routeIs('data.informasi') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
                     <img src="{{ asset('assets/icons/infodata.png') }}" alt="Metadata Icon"
                         class="w-6 h-6 mb-1">
                     Informasi Data

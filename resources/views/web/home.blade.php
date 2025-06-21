@@ -64,17 +64,17 @@
                     <img src="{{ asset('assets/icons/peta.png') }}" alt="Peta Icon" class="w-6 h-6 mb-2">
                     Desa Dalam Peta
                 </a>
-                <a href="#"
+                <a href="{{ route('desa-dalam-buku') }}"
                     class="menu-card flex flex-col items-center justify-center transition border border-gray-300 bg-white rounded-lg p-4 hover:border-blue-500 min-w-[80px] {{ request()->is('buku-monografi') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
                     <img src="https://cdn-icons-png.flaticon.com/512/2991/2991108.png" alt="Buku Icon"
                         class="w-6 h-6 mb-2">
                     Buku Monografi
                 </a>
-                <a href="#"
-                    class="menu-card flex flex-col items-center justify-center transition border border-gray-300 bg-white rounded-lg p-4 hover:border-blue-500 min-w-[80px] {{ request()->is('metadata') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
+                <a href="{{ route('data.informasi') }}"
+                    class="menu-card flex flex-col items-center justify-center transition border border-gray-300 bg-white rounded-lg p-4 hover:border-blue-500 min-w-[80px] {{ request()->is('data.informasi') ? 'text-blue-600 font-semibold border-blue-500' : 'text-gray-700 hover:text-blue-600' }}">
                     <img src="https://cdn-icons-png.flaticon.com/512/833/833539.png" alt="Metadata Icon"
                         class="w-6 h-6 mb-2">
-                    Metadata
+                    Informasi Data
                 </a>
             </div>
         </div>

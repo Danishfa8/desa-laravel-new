@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminKabupaten\ApprovalController;
 use App\Http\Controllers\DataAngkaController;
 use App\Http\Controllers\DataDalamPetaController;
+use App\Http\Controllers\BukuDesaController;
+use App\Http\Controllers\InformasiDesaController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfileDesaController;
 use App\Http\Controllers\Superadmin\KelembagaanDesaController;
@@ -48,8 +50,18 @@ Route::get('/debug-query', [DataAngkaController::class, 'debugQuery'])->name('de
 Route::put('/{table}/{id}/approval', [ApprovalController::class, 'approve'])
     ->name('approval');
 
+// Tambahkan route untuk Buku Desa
+Route::get('/desa-dalam-buku', [BukuDesaController::class, 'index'])->name('desa-dalam-buku');
+Route::get('/desa-dalam-buku/pdf', [BukuDesaController::class, 'generatePdf'])->name('desa-dalam-buku.pdf');
+Route::get('/desa-dalam-buku/download', [BukuDesaController::class, 'downloadPdf'])->name('desa-dalam-buku.download');
+
+//Route Informasi Data
+Route::get('/informasi-data', [InformasiDesaController::class, 'index'])->name('data.informasi');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/superadmin.php';
 require __DIR__ . '/admin_desa.php';
 require __DIR__ . '/admin_kabupaten.php';
 require __DIR__ . '/api.php';
+
+
