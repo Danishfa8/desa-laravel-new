@@ -180,9 +180,12 @@ class AjukanController extends Controller
 
             // Validasi status
             $currentStatus = $record->{$statusField};
-            if ($currentStatus !== 'Arsip') {
-                return $this->redirectWithError("Hanya data dengan status 'Arsip' yang bisa diajukan! Status saat ini: {$currentStatus}");
-            }
+            if (!in_array($currentStatus, ['Arsip', 'Rejected'])) {
+                return $this->redirectWithError("Hanya data dengan status 'Arsip' atau 'Rejected' yang bisa diajukan! Status saat ini: {$currentStatus}");
+            }            
+            // if ($currentStatus !== 'Arsip') {
+            //     return $this->redirectWithError("Hanya data dengan status 'Arsip' yang bisa diajukan! Status saat ini: {$currentStatus}");
+            // }
 
             // Update record
             $updateData = [

@@ -21,21 +21,9 @@ Route::get('/desa-section/{desaId}/{section}', [ProfileDesaController::class, 'g
 
 // web.php
 Route::get('/desa-dalam-peta', [DataDalamPetaController::class, 'index'])->name('peta.dinamik');
-Route::prefix('map')->name('map.')->group(function () {
-    // Basic data endpoints
-    Route::get('/kecamatan', [LocationController::class, 'getKecamatan'])->name('kecamatan');
-    Route::get('/desa/{kecamatanId}', [LocationController::class, 'getDesa'])->name('desa');
-    Route::get('/desa/{desa}/kategori-data', [LocationController::class, 'getKategoriDataByDesa'])->name('kategori-data');
 
-    // Additional endpoints
-    Route::get('/all-data', [LocationController::class, 'getAllData'])->name('all-data');
-    Route::get('/desa/{desa}/kategori/{type}', [LocationController::class, 'getKategoriByType'])->name('kategori-by-type');
-    Route::get('/statistics', [LocationController::class, 'getStatistics'])->name('statistics');
 
-    // Tambahkan route ini
-    Route::get('/desa/{desaId}/boundary', [LocationController::class, 'getDesaBoundary']);
-    Route::post('/clear-cache', [LocationController::class, 'clearCache'])->name('clear-cache');
-});
+
 
 // Ex
 Route::get('/desa-dalam-angka', [DataAngkaController::class, 'index'])->name('data.index');
@@ -46,9 +34,6 @@ Route::post('/data-angka/get-result', [DataAngkaController::class, 'getResult'])
 Route::get('/debug-table-structure', [DataAngkaController::class, 'debugTableStructure'])->name('debug.tableStructure');
 Route::get('/debug-query', [DataAngkaController::class, 'debugQuery'])->name('debug.query');
 
-// ApprovalController
-Route::put('/{table}/{id}/approval', [ApprovalController::class, 'approve'])
-    ->name('approval');
 
 // Tambahkan route untuk Buku Desa
 Route::get('/desa-dalam-buku', [BukuDesaController::class, 'index'])->name('desa-dalam-buku');

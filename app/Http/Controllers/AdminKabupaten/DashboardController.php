@@ -74,4 +74,18 @@ class DashboardController extends Controller
         return view('admin_kabupaten.pendapatan', compact('pendapatanDesas'))
             ->with('i', ($request->input('page', 1) - 1) * $pendapatanDesas->perPage());
     }
+
+    public function jembatanDesa(Request $request): View
+    {
+        $jembatanDesas = JembatanDesa::withoutGlobalScopes()
+            ->whereIn('status', ['Pending', 'Approved', 'Rejected'])
+            ->with(['desa:id,nama_desa', 'rtRwDesa:id,rt,rw']) // pastikan relasi ini ada
+            ->orderByDesc('created_at')
+            ->paginate(10);
+    
+        return view('admin_kabupaten.jembatan-desa', compact('jembatanDesas'))
+            ->with('i', ($request->input('page', 1) - 1) * $jembatanDesas->perPage());
+    }
+    
+
 }

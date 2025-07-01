@@ -138,10 +138,15 @@ class RtRwDesa extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    // public function jembatanDesas()
+    // {
+    //     return $this->hasMany(\App\Models\JembatanDesa::class, 'id', 'rt_rw_desa_id');
+    // }
     public function jembatanDesas()
-    {
-        return $this->hasMany(\App\Models\JembatanDesa::class, 'id', 'rt_rw_desa_id');
-    }
+{
+    return $this->hasMany(\App\Models\JembatanDesa::class, 'rt_rw_desa_id', 'id');
+}
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

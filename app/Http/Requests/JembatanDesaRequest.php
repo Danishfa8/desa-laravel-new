@@ -29,6 +29,7 @@ class JembatanDesaRequest extends FormRequest
             'lebar' => 'required',
             'kondisi' => 'required',
             'lokasi' => 'required|string',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'created_by' => 'required|string',
             'updated_by' => 'string',
             'status' => 'required',

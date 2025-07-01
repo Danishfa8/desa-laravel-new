@@ -1,0 +1,242 @@
+<div class="row padding-1 p-1">
+    <div class="col-md-12">
+        <div class="form-group mb-2 mb20">
+            <label for="desa_id" class="form-label">Desa</label>
+            <select name="desa_id" id="desa_id" class="form-control select2 <?php $__errorArgs = ['desa_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                <option value="">-- Pilih Desa --</option>
+                <?php $__currentLoopData = $desas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($item->id); ?>" <?php echo e(old('desa_id', $jembatanDesa->desa_id) == $item->id ? 'selected' : ''); ?>>
+                        <?php echo e($item->nama_desa); ?>
+
+                    </option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </select>
+            <?php $__errorArgs = ['desa_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="rt_rw_desa_id">RT/RW</label>
+            <select name="rt_rw_desa_id" id="rt_rw_desa_id" class="form-control" required>
+                <option value="">-- Pilih RT/RW --</option>
+            </select>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="nama_jembatan">Nama Jembatan</label>
+            <input type="text" name="nama_jembatan" id="nama_jembatan" class="form-control <?php $__errorArgs = ['nama_jembatan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                value="<?php echo e(old('nama_jembatan', $jembatanDesa->nama_jembatan)); ?>" placeholder="Nama Jembatan">
+            <?php $__errorArgs = ['nama_jembatan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="panjang">Panjang</label>
+            <input type="number" name="panjang" id="panjang" class="form-control <?php $__errorArgs = ['panjang'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                value="<?php echo e(old('panjang', $jembatanDesa->panjang)); ?>" placeholder="Panjang (Meter)">
+            <?php $__errorArgs = ['panjang'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="lebar">Lebar</label>
+            <input type="number" name="lebar" id="lebar" class="form-control <?php $__errorArgs = ['lebar'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                value="<?php echo e(old('lebar', $jembatanDesa->lebar)); ?>" placeholder="Lebar (Meter)">
+            <?php $__errorArgs = ['lebar'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="kondisi">Kondisi</label>
+            <select name="kondisi" id="kondisi" class="form-control <?php $__errorArgs = ['kondisi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+                <option value="">-- Pilih Kondisi --</option>
+                <option value="Baik" <?php echo e(old('kondisi', $jembatanDesa->kondisi) == 'Baik' ? 'selected' : ''); ?>>Baik</option>
+                <option value="Rusak Ringan" <?php echo e(old('kondisi', $jembatanDesa->kondisi) == 'Rusak Ringan' ? 'selected' : ''); ?>>Rusak Ringan</option>
+                <option value="Rusak Berat" <?php echo e(old('kondisi', $jembatanDesa->kondisi) == 'Rusak Berat' ? 'selected' : ''); ?>>Rusak Berat</option>
+            </select>
+            <?php $__errorArgs = ['kondisi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="lokasi">Lokasi</label>
+            <input type="text" name="lokasi" id="lokasi" class="form-control <?php $__errorArgs = ['lokasi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                value="<?php echo e(old('lokasi', $jembatanDesa->lokasi)); ?>" placeholder="Lokasi">
+            <?php $__errorArgs = ['lokasi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <input type="hidden" name="updated_by" value="<?php echo e(Auth::user()->name); ?>">
+
+        <div class="form-group mb-2 mb20">
+            <label for="latitude">Latitude</label>
+            <input type="text" name="latitude" id="latitude" class="form-control <?php $__errorArgs = ['latitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                value="<?php echo e(old('latitude', $jembatanDesa->latitude)); ?>" placeholder="Latitude">
+            <?php $__errorArgs = ['latitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+
+        <div class="form-group mb-2 mb20">
+            <label for="longitude">Longitude</label>
+            <input type="text" name="longitude" id="longitude" class="form-control <?php $__errorArgs = ['longitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                value="<?php echo e(old('longitude', $jembatanDesa->longitude)); ?>" placeholder="Longitude">
+            <?php $__errorArgs = ['longitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <div class="invalid-feedback"><strong><?php echo e($message); ?></strong></div>
+            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 mb20">
+    <label for="foto" class="form-label">Foto Jembatan</label>
+    <input type="file" name="foto" id="foto" accept="image/*"
+           class="form-control <?php $__errorArgs = ['foto'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>">
+    <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB.</small>
+    <?php $__errorArgs = ['foto'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> <div class="invalid-feedback"><?php echo e($message); ?></div> <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+
+    <?php if($jembatanDesa->foto): ?>
+        <div class="mt-2">
+            <img src="<?php echo e(asset('storage/foto_jembatan/' . $jembatanDesa->foto)); ?>" alt="Foto Jembatan"
+                 style="max-height: 150px; border: 1px solid #ccc;">
+        </div>
+    <?php endif; ?>
+</div>
+
+
+    <div class="col-md-12 mt-2">
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+    </div>
+</div>
+<?php /**PATH C:\Users\Administrator\Documents\project\desa-laravel-new\resources\views/admin_kabupaten/jembatan-desa/form.blade.php ENDPATH**/ ?>
