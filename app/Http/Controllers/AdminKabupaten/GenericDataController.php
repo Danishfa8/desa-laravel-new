@@ -74,11 +74,11 @@ class GenericDataController extends Controller
             'view' => 'admin_kabupaten.pkk-desa',
             'variable' => 'pkkDesas'
         ],
-        'jembatan-desa' => [
-            'model' => JembatanDesa::class,
-            'view' => 'admin_kabupaten.jembatan-desa',
-            'variable' => 'jembatanDesas'
-        ],
+        // 'jembatan-desa' => [
+        //     'model' => JembatanDesa::class,
+        //     'view' => 'admin_kabupaten.jembatan-desa',
+        //     'variable' => 'jembatanDesas',
+        // ],
         'jalan-desa' => [
             'model' => JalanDesa::class,
             'view' => 'admin_kabupaten.jalan',
@@ -192,11 +192,10 @@ class GenericDataController extends Controller
 
     public function show(Request $request, string $type = null): View
     {
-        // Jika type tidak ada di parameter, ambil dari route defaults
+        
         if (!$type) {
             $type = $request->route()->parameter('type');
         } {
-            // Validasi type
             if (!array_key_exists($type, $this->config)) {
                 abort(404, 'Data type not found');
             }
@@ -205,9 +204,36 @@ class GenericDataController extends Controller
             $model = $config['model'];
 
             $data = $model::with('desa', 'rtRwDesa')->paginate();
+            $data = $model::with('desa', 'rtRwDesa')
+            ->whereNotIn('status', ['Draft'])
+    ->paginate();
 
             return view($config['view'], [$config['variable'] => $data])
                 ->with('i', ($request->input('page', 1) - 1) * $data->perPage());
         }
     }
+    // public function show(Request $request, string $type = null): View
+    // {
+    //     $type = $type ?? $request->route('type');
+    
+    //     if (!array_key_exists($type, $this->config)) {
+    //         abort(404, "Tipe data '{$type}' tidak ditemukan.");
+    //     }
+    
+    //     $config = $this->config[$type];
+    //     $modelClass = $config['model'];
+    
+    //     $data = $modelClass::with(['desa', 'rtRwDesa'])->paginate(10);
+    
+    //     // Ambil nama table dari model secara otomatis
+    //     $table = (new $modelClass)->getTable();
+    
+    //     return view($config['view'], [
+    //         $config['variable'] => $data,
+    //         'i' => ($request->input('page', 1) - 1) * $data->perPage(),
+    //         'table' => $table
+    //     ]);
+    // }
+    
+
 }

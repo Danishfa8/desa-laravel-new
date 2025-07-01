@@ -1,205 +1,83 @@
-<div id="showModal{{ $jembatanDesa->id }}" class="modal flip" tabindex="-1"
-    aria-labelledby="showModalLabel{{ $jembatanDesa->id }}" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="showModalLabel{{ $jembatanDesa->id }}">
-                    Detail Jembatan Desa {{ $jembatanDesa->desa->nama_desa }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Nama Desa</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->desa->nama_desa }}
-                    </div>
-                </div>
+<div id="showModal{{ $jembatanDesa->id }}" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50" role="dialog" aria-modal="true" aria-labelledby="showModalLabel{{ $jembatanDesa->id }}">
+  <div class="flex items-center justify-center min-h-screen px-4" onclick="handleOutsideClick(event, '{{ $jembatanDesa->id }}')">
+    <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <h2 id="showModalLabel{{ $jembatanDesa->id }}" class="text-lg font-semibold text-gray-800">
+          Detail Jembatan Desa {{ $jembatanDesa->desa->nama_desa }}
+        </h2>
+        <button type="button" class="text-gray-600 hover:text-gray-900" onclick="closeModal('{{ $jembatanDesa->id }}')">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>RT/RW</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->rtRwDesa->rt }}/{{ $jembatanDesa->rtRwDesa->rw }}
-                    </div>
-                </div>
+      {{-- Foto Jembatan --}}
+      <div class="px-4 pt-4">
+        @if ($jembatanDesa->foto)
+          <div class="text-center mb-3">
+            <img src="{{ asset('storage/foto_jembatan/' . $jembatanDesa->foto) }}"
+                 alt="Foto Jembatan"
+                 class="rounded shadow max-h-64 mx-auto">
+          </div>
+        @else
+          <div class="text-center text-gray-500 mb-3 italic">Tidak ada foto</div>
+        @endif
+      </div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Nama Jembatan</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->nama_jembatan }}
-                    </div>
-                </div>
+      <div class="p-4 space-y-3 text-sm text-gray-700">
+        <div class="grid grid-cols-3 gap-2">
+          <div class="font-medium">Nama Desa</div>
+          <div class="col-span-2">{{ $jembatanDesa->desa->nama_desa }}</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Panjang Jembatan</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->panjang }} Meter
-                    </div>
-                </div>
+          <div class="font-medium">RT/RW</div>
+          <div class="col-span-2">{{ $jembatanDesa->rtRwDesa->rt }}/{{ $jembatanDesa->rtRwDesa->rw }}</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Lebar Jembatan</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->lebar }} Meter
-                    </div>
-                </div>
+          <div class="font-medium">Nama Jembatan</div>
+          <div class="col-span-2">{{ $jembatanDesa->nama_jembatan }}</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Kondisi Jembatan</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->kondisi }}
-                    </div>
-                </div>
+          <div class="font-medium">Panjang</div>
+          <div class="col-span-2">{{ $jembatanDesa->panjang }} Meter</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Lokasi Jembatan</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->lokasi }}
-                    </div>
-                </div>
+          <div class="font-medium">Lebar</div>
+          <div class="col-span-2">{{ $jembatanDesa->lebar }} Meter</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Status</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        @if ($jembatanDesa->status == 'Arsip')
-                            <span class="badge bg-primary">{{ $jembatanDesa->status }}</span>
-                        @elseif($jembatanDesa->status == 'Pending')
-                            <span class="badge bg-warning">{{ $jembatanDesa->status }}</span>
-                        @elseif ($jembatanDesa->status == 'Approved')
-                            <span class="badge bg-success">{{ $jembatanDesa->status }}</span>
-                        @elseif ($jembatanDesa->status == 'Rejected')
-                            <span class="badge bg-danger">{{ $jembatanDesa->status }}</span>
-                        @else
-                            <span class="badge bg-secondary">{{ $jembatanDesa->status }}</span>
-                        @endif
-                    </div>
-                </div>
+          <div class="font-medium">Kondisi</div>
+          <div class="col-span-2">{{ $jembatanDesa->kondisi }}</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>created By</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->created_by }}
-                    </div>
-                </div>
+          <div class="font-medium">Lokasi</div>
+          <div class="col-span-2">{{ $jembatanDesa->lokasi }}</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Reject Reason</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->reject_reason ?? 'Tidak ada keterangan' }}
-                    </div>
-                </div>
+          <div class="font-medium">Status</div>
+          <div class="col-span-2">
+            @php $statusColor = [
+              'Arsip' => 'bg-blue-500',
+              'Pending' => 'bg-yellow-400',
+              'Approved' => 'bg-green-500',
+              'Rejected' => 'bg-red-500'
+            ]; @endphp
+            <span class="text-white px-2 py-1 rounded text-xs {{ $statusColor[$jembatanDesa->status] ?? 'bg-gray-500' }}">
+              {{ $jembatanDesa->status }}
+            </span>
+          </div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Approved By</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->approved_by ?? 'Belum Di Approved' }}
-                    </div>
-                </div>
+          <div class="font-medium">Created By</div>
+          <div class="col-span-2">{{ $jembatanDesa->created_by }}</div>
 
-                <div class="row mb-3">
-                    <div class="col-sm-4">
-                        <strong>Approved At:</strong>
-                    </div>
-                    <div class="col-sm-8">
-                        {{ $jembatanDesa->approved_at ?? 'Belum Di Approved' }}
-                    </div>
-                </div>
-                {{-- Form Approval untuk Admin Kabupaten --}}
-                @if (
-                    (auth()->user()->hasRole('admin_kabupaten') || auth()->user()->hasRole('superadmin')) &&
-                        $jembatanDesa->status == 'Pending')
-                    <hr>
+          <div class="font-medium">Reject Reason</div>
+          <div class="col-span-2">{{ $jembatanDesa->reject_reason ?? 'Tidak ada keterangan' }}</div>
 
-                    <div class="card-body">
-                        {{-- PERBAIKAN ROUTE: tukar posisi table dan id --}}
-                        <form
-                            action="{{ route('approval', ['table' => 'jembatan_desas', 'id' => $jembatanDesa->id]) }}"
-                            method="POST" id="approvalForm{{ $jembatanDesa->id }}">
-                            @csrf
-                            @method('PUT')
-                            <div class="mb-3">
-                                <label for="approval_status{{ $jembatanDesa->id }}" class="form-label">
-                                    <strong>Status Approval <span class="text-danger">*</span></strong>
-                                </label>
-                                <select class="form-select" id="approval_status{{ $jembatanDesa->id }}" name="status"
-                                    required>
-                                    <option value="">-- Pilih Status --</option>
-                                    <option value="Approved">Approve</option>
-                                    <option value="Rejected">Reject</option>
-                                </select>
-                            </div>
+          <div class="font-medium">Approved By</div>
+          <div class="col-span-2">{{ $jembatanDesa->approved_by ?? 'Belum Di Approved' }}</div>
 
-                            <div class="mb-3" id="reject_reason_container{{ $jembatanDesa->id }}"
-                                style="display: none;">
-                                <label for="reject_reason{{ $jembatanDesa->id }}" class="form-label">
-                                    <strong>Alasan Penolakan <span class="text-danger">*</span></strong>
-                                </label>
-                                <textarea class="form-control" id="reject_reason{{ $jembatanDesa->id }}" name="reject_reason" rows="3"
-                                    placeholder="Masukkan alasan penolakan..."></textarea>
-                            </div>
+          <div class="font-medium">Approved At</div>
+          <div class="col-span-2">{{ $jembatanDesa->approved_at ?? 'Belum Di Approved' }}</div>
+        </div>
+      </div>
 
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-success"
-                                    onclick="return confirmApproval{{ $jembatanDesa->id }}()">
-                                    <i class="fa fa-save"></i> Proses Approval
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-
-
-                    <script>
-                        document.getElementById('approval_status{{ $jembatanDesa->id }}').addEventListener('change', function() {
-                            const rejectContainer = document.getElementById('reject_reason_container{{ $jembatanDesa->id }}');
-                            const rejectTextarea = document.getElementById('reject_reason{{ $jembatanDesa->id }}');
-
-                            if (this.value === 'Rejected') {
-                                rejectContainer.style.display = 'block';
-                                rejectTextarea.required = true;
-                            } else {
-                                rejectContainer.style.display = 'none';
-                                rejectTextarea.required = false;
-                                rejectTextarea.value = '';
-                            }
-                        });
-
-                        function confirmApproval{{ $jembatanDesa->id }}() {
-                            const status = document.getElementById('approval_status{{ $jembatanDesa->id }}').value;
-                            const message = status === 'Approved' ?
-                                'Apakah Anda yakin ingin menyetujui data ini?' :
-                                'Apakah Anda yakin ingin menolak data ini?';
-
-                            return confirm(message);
-                        }
-                    </script>
-                @endif
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+      <div class="flex items-center justify-end px-4 py-3 border-t">
+        <button class="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded hover:bg-gray-700" onclick="closeModal('{{ $jembatanDesa->id }}')">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>

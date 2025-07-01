@@ -894,3 +894,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 loadKecamatan();
+
+// fungsi kategori
+document.addEventListener('DOMContentLoaded', function () {
+    fetchKategoriPeta();
+    fetchKecamatan(); // misalnya kamu juga isi kecamatan via JS
+
+    function fetchKategoriPeta() {
+        fetch('/kategori-peta')
+            .then(res => res.json())
+            .then(data => {
+                const kategoriSelect = document.getElementById('kategori');
+                kategoriSelect.innerHTML = '<option value="">-- Pilih Kategori --</option>';
+                data.forEach(item => {
+                    const opt = document.createElement('option');
+                    opt.value = item.id;
+                    opt.textContent = item.nama;
+                    kategoriSelect.appendChild(opt);
+                });
+            });
+    }
+});
