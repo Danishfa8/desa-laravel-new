@@ -3,101 +3,134 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <?php echo $__env->make('layouts.messages', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <?php echo $__env->make('layouts.messages', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span id="card_title"><?php echo e(__('Jembatan Desa')); ?></span>
+                    <a href="<?php echo e(route('superadmin.jembatan-desa.create')); ?>" class="btn btn-primary btn-sm">
+                        <?php echo e(__('Create New')); ?>
 
-                            <span id="card_title">
-                                <?php echo e(__('Jembatan Desa')); ?>
+                    </a>
+                </div>
 
-                            </span>
-
-                            <div class="float-right">
-                                <a href="<?php echo e(route('superadmin.jembatan-desa.create')); ?>"
-                                    class="btn btn-primary btn-sm float-right" data-placement="left">
-                                    <?php echo e(__('Create New')); ?>
-
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
+                <div class="card-body bg-white">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Desa</th>
+                                    <th>RT/RW</th>
+                                    <th>Nama Jembatan</th>
+                                    <th>Panjang</th>
+                                    <th>Lebar</th>
+                                    <th>Kondisi</th>
+                                    <th>Lokasi</th>
+                                    <th>Foto</th>
+                                    <th>Created By</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $__currentLoopData = $jembatanDesas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jembatanDesa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <th>No</th>
+                                        <td><?php echo e(++$i); ?></td>
+                                        <td><?php echo e($jembatanDesa->desa->nama_desa ?? '-'); ?></td>
+                                        <td><?php echo e($jembatanDesa->rtRwDesa->rt ?? '-'); ?>/<?php echo e($jembatanDesa->rtRwDesa->rw ?? '-'); ?></td>
+                                        <td><?php echo e($jembatanDesa->nama_jembatan); ?></td>
+                                        <td><?php echo e($jembatanDesa->panjang); ?> M</td>
+                                        <td><?php echo e($jembatanDesa->lebar); ?> M</td>
+                                        <td>
+                                            <span class="badge
+                                                <?php if($jembatanDesa->kondisi == 'Baik'): ?> bg-success
+                                                <?php elseif($jembatanDesa->kondisi == 'Rusak Ringan'): ?> bg-warning text-dark
+                                                <?php elseif($jembatanDesa->kondisi == 'Rusak Berat'): ?> bg-danger
+                                                <?php else: ?> bg-secondary <?php endif; ?>">
+                                                <?php echo e($jembatanDesa->kondisi); ?>
 
-                                        <th>Desa</th>
-                                        <th>RT/RW</th>
-                                        <th>Nama Jembatan</th>
-                                        <th>Panjang</th>
-                                        <th>Lebar</th>
-                                        <th>Kondisi</th>
-                                        <th>Lokasi</th>
-                                        <th>Created By</th>
+                                            </span>
+                                        </td>
+                                        <td><?php echo e($jembatanDesa->lokasi); ?></td>
+                                        <td>
+                                            <?php if($jembatanDesa->foto): ?>
+                                                <img src="<?php echo e(asset('storage/foto_jembatan/' . $jembatanDesa->foto)); ?>"
+                                                    alt="Foto Jembatan"
+                                                    style="max-height: 60px; border-radius: 4px;">
+                                            <?php else: ?>
+                                                <span class="text-muted">Tidak ada</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo e($jembatanDesa->created_by); ?></td>
+                                        <td>
+                                            <span class="badge
+                                                <?php if($jembatanDesa->status === 'Approved'): ?> bg-success
+                                                <?php elseif($jembatanDesa->status === 'Pending'): ?> bg-warning text-dark
+                                                <?php elseif($jembatanDesa->status === 'Arsip'): ?> bg-secondary
+                                                <?php elseif($jembatanDesa->status === 'Rejected'): ?> bg-danger
+                                                <?php else: ?> bg-light text-dark <?php endif; ?>">
+                                                <?php echo e($jembatanDesa->status); ?>
 
-                                        <th></th>
+                                            </span>
+                                        </td>
+
+                                        
+                                        <?php if (isset($component)) { $__componentOriginalc629dbd8ece12f5dd0f4f508e65f6726 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalc629dbd8ece12f5dd0f4f508e65f6726 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.action-buttons-superadmin','data' => ['item' => $jembatanDesa,'routePrefix' => 'superadmin.jembatan-desa','statusField' => 'status']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('action-buttons-superadmin'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['item' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($jembatanDesa),'route-prefix' => 'superadmin.jembatan-desa','status-field' => 'status']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalc629dbd8ece12f5dd0f4f508e65f6726)): ?>
+<?php $attributes = $__attributesOriginalc629dbd8ece12f5dd0f4f508e65f6726; ?>
+<?php unset($__attributesOriginalc629dbd8ece12f5dd0f4f508e65f6726); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc629dbd8ece12f5dd0f4f508e65f6726)): ?>
+<?php $component = $__componentOriginalc629dbd8ece12f5dd0f4f508e65f6726; ?>
+<?php unset($__componentOriginalc629dbd8ece12f5dd0f4f508e65f6726); ?>
+<?php endif; ?>
+
+                                        
+                                        <?php if (isset($component)) { $__componentOriginal38ad11554905c4932e89225c76d73c0b = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal38ad11554905c4932e89225c76d73c0b = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.jembatan-desa.modal-detail','data' => ['item' => $jembatanDesa]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('jembatan-desa.modal-detail'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['item' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($jembatanDesa)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal38ad11554905c4932e89225c76d73c0b)): ?>
+<?php $attributes = $__attributesOriginal38ad11554905c4932e89225c76d73c0b; ?>
+<?php unset($__attributesOriginal38ad11554905c4932e89225c76d73c0b); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal38ad11554905c4932e89225c76d73c0b)): ?>
+<?php $component = $__componentOriginal38ad11554905c4932e89225c76d73c0b; ?>
+<?php unset($__componentOriginal38ad11554905c4932e89225c76d73c0b); ?>
+<?php endif; ?>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $__currentLoopData = $jembatanDesas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $jembatanDesa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <tr>
-                                            <td><?php echo e(++$i); ?></td>
-
-                                            <td><?php echo e($jembatanDesa->desa->nama_desa); ?></td>
-                                            <td><?php echo e($jembatanDesa->rtRwDesa->rt); ?>/<?php echo e($jembatanDesa->rtRwDesa->rw); ?></td>
-                                            <td><?php echo e($jembatanDesa->nama_jembatan); ?></td>
-                                            <td><?php echo e($jembatanDesa->panjang); ?> M</td>
-                                            <td><?php echo e($jembatanDesa->lebar); ?> M</td>
-                                            <td>
-                                                <?php if($jembatanDesa->kondisi == 'Baik'): ?>
-                                                    <span class="badge bg-success"><?php echo e($jembatanDesa->kondisi); ?></span>
-                                                <?php elseif($jembatanDesa->kondisi == 'Rusak Ringan'): ?>
-                                                    <span
-                                                        class="badge bg-warning text-dark"><?php echo e($jembatanDesa->kondisi); ?></span>
-                                                <?php elseif($jembatanDesa->kondisi == 'Rusak Berat'): ?>
-                                                    <span class="badge bg-danger"><?php echo e($jembatanDesa->kondisi); ?></span>
-                                                <?php else: ?>
-                                                    <span class="badge bg-secondary"><?php echo e($jembatanDesa->kondisi); ?></span>
-                                                <?php endif; ?>
-                                            </td>
-                                            <td><?php echo e($jembatanDesa->lokasi); ?></td>
-                                            <td><?php echo e($jembatanDesa->created_by); ?></td>
-
-                                            <td>
-                                                <form
-                                                    action="<?php echo e(route('superadmin.jembatan-desa.destroy', $jembatanDesa->id)); ?>"
-                                                    method="POST">
-                                                    <a class="btn btn-sm btn-primary "
-                                                        href="<?php echo e(route('superadmin.jembatan-desa.show', $jembatanDesa->id)); ?>"><i
-                                                            class="fa fa-fw fa-eye"></i> <?php echo e(__('Show')); ?></a>
-                                                    <a class="btn btn-sm btn-success"
-                                                        href="<?php echo e(route('superadmin.jembatan-desa.edit', $jembatanDesa->id)); ?>"><i
-                                                            class="fa fa-fw fa-edit"></i> <?php echo e(__('Edit')); ?></a>
-                                                    <?php echo csrf_field(); ?>
-                                                    <?php echo method_field('DELETE'); ?>
-                                                    <button type="submit" class="btn btn-danger btn-sm"
-                                                        onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i
-                                                            class="fa fa-fw fa-trash"></i> <?php echo e(__('Delete')); ?></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <?php echo $__env->make('layouts.pagination', ['paginator' => $jembatanDesas], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </tbody>
+                        </table>
                     </div>
+                    <?php echo $__env->make('layouts.pagination', ['paginator' => $jembatanDesas], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
                 </div>
             </div>
         </div>
     </div>
+</div>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Administrator\Documents\project\desa-laravel-new\resources\views/superadmin/jembatan-desa/index.blade.php ENDPATH**/ ?>

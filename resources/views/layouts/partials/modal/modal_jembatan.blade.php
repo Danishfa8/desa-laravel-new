@@ -47,31 +47,6 @@
 
           <div class="font-medium">Lokasi</div>
           <div class="col-span-2">{{ $jembatanDesa->lokasi }}</div>
-
-          <div class="font-medium">Status</div>
-          <div class="col-span-2">
-            @php $statusColor = [
-              'Arsip' => 'bg-blue-500',
-              'Pending' => 'bg-yellow-400',
-              'Approved' => 'bg-green-500',
-              'Rejected' => 'bg-red-500'
-            ]; @endphp
-            <span class="text-white px-2 py-1 rounded text-xs {{ $statusColor[$jembatanDesa->status] ?? 'bg-gray-500' }}">
-              {{ $jembatanDesa->status }}
-            </span>
-          </div>
-
-          <div class="font-medium">Created By</div>
-          <div class="col-span-2">{{ $jembatanDesa->created_by }}</div>
-
-          <div class="font-medium">Reject Reason</div>
-          <div class="col-span-2">{{ $jembatanDesa->reject_reason ?? 'Tidak ada keterangan' }}</div>
-
-          <div class="font-medium">Approved By</div>
-          <div class="col-span-2">{{ $jembatanDesa->approved_by ?? 'Belum Di Approved' }}</div>
-
-          <div class="font-medium">Approved At</div>
-          <div class="col-span-2">{{ $jembatanDesa->approved_at ?? 'Belum Di Approved' }}</div>
         </div>
       </div>
 

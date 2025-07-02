@@ -82,13 +82,6 @@
             ) !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="foto" class="form-label">{{ __('Foto') }}</label>
-            <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
-                value="{{ old('foto', $pendidikanDesa?->foto) }}" id="foto" placeholder="Foto" required>
-            {!! $errors->first('foto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-            <small class="text-danger">*Maks 2MB</small>
-        </div>
-        <div class="form-group mb-2 mb20">
             <label for="latitude" class="form-label">{{ __('Latitude') }}</label>
             <input type="text" name="latitude" class="form-control @error('latitude') is-invalid @enderror"
                 value="{{ old('latitude', $pendidikanDesa?->latitude) }}" id="latitude" placeholder="Latitude"
@@ -104,6 +97,22 @@
             {!! $errors->first('longitude', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
             {{-- <small class="text-danger">*Opsional</small> --}}
         </div>
+        <div class="form-group mb-2 mb20">
+    <label for="foto" class="form-label">{{ __('Foto') }}</label>
+    <input type="file" name="foto" id="foto" accept="image/*"
+        class="form-control @error('foto') is-invalid @enderror"
+        {{ request()->routeIs('admin_desa.pendidikan-desa.create') ? 'required' : '' }}>
+    <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB.</small>
+    @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+    @if (!empty($pendidikanDesa?->foto))
+        <div class="mt-2">
+            <img src="{{ asset('storage/foto_pendidikan/' . $pendidikanDesa->foto) }}" alt="Foto Pendidikan"
+                style="max-height: 150px; border: 1px solid #ccc;">
+        </div>
+    @endif
+</div>
+
         <input type="hidden" name="created_by" value="{{ Auth::user()->name }}">
         <input type="hidden" name="updated_by" class="form-control" value="{{ $kelembagaanDesa->updated_by ?? '-' }}">
         <input type="hidden" name="status" class="form-control" value="Arsip" id="status" placeholder="Status">
