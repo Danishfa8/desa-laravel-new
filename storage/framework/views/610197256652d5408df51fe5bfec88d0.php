@@ -45,6 +45,8 @@ unset($__defined_vars); ?>
              class="img-fluid rounded shadow-sm"
              style="max-height: 300px;">
     </div>
+    <?php else: ?>
+          <div class="text-center text-gray-500 mb-3 italic">Tidak ada foto</div>
 <?php endif; ?>
 
 

@@ -84,7 +84,8 @@
             <div class="form-group mb-2">
             <label for="foto" class="form-label">Foto Jembatan</label>
             <input type="file" name="foto" id="foto" accept="image/*"
-                class="form-control @error('foto') is-invalid @enderror">
+                class="form-control @error('foto') is-invalid @enderror"
+                {{ isset($jembatanDesa->id) ? '' : 'required' }}>
             <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB.</small>
             @error('foto') <div class="invalid-feedback">{{ $message }}</div> @enderror
 

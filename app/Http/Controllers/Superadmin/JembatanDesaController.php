@@ -6,16 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\JembatanDesa;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Requests\JembatanDesaRequest;
+use App\Http\Requests\JembatanDesaKabupatenRequest;
 use App\Models\Desa;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class JembatanDesaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request): View
     {
         $jembatanDesas = JembatanDesa::with('desa', 'rtRwDesa')->paginate();
@@ -24,9 +22,6 @@ class JembatanDesaController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * $jembatanDesas->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         $jembatanDesa = new JembatanDesa();
@@ -35,54 +30,76 @@ class JembatanDesaController extends Controller
         return view('superadmin.jembatan-desa.create', compact('jembatanDesa', 'desas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(JembatanDesaRequest $request): RedirectResponse
+    public function store(JembatanDesaKabupatenRequest $request): RedirectResponse
     {
-        JembatanDesa::create($request->validated());
+        $data = $request->validated();
+
+        if ($request->hasFile('foto')) {
+            $filename = time() . '_' . uniqid() . '.' . $request->foto->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('foto_jembatan', $request->file('foto'), $filename);
+            $data['foto'] = $filename;
+        }
+
+        $data['status'] = 'Approved';
+        $data['created_by'] = auth()->id();
+        $data['approved_by'] = auth()->id();
+
+        JembatanDesa::create($data);
 
         return Redirect::route('superadmin.jembatan-desa.index')
-            ->with('success', 'JembatanDesa created successfully.');
+            ->with('success', 'Data jembatan berhasil dibuat.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id): View
     {
-        $jembatanDesa = JembatanDesa::find($id);
+        $jembatanDesa = JembatanDesa::findOrFail($id);
 
         return view('superadmin.jembatan-desa.show', compact('jembatanDesa'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id): View
     {
-        $jembatanDesa = JembatanDesa::find($id);
+        $jembatanDesa = JembatanDesa::findOrFail($id);
         $desas = Desa::all();
 
         return view('superadmin.jembatan-desa.edit', compact('jembatanDesa', 'desas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(JembatanDesaRequest $request, JembatanDesa $jembatanDesa): RedirectResponse
+    public function update(JembatanDesaKabupatenRequest $request, $id): RedirectResponse
     {
-        $jembatanDesa->update($request->validated());
+        $jembatanDesa = JembatanDesa::findOrFail($id);
+        $data = $request->validated();
+
+        unset($data['status'], $data['created_by'], $data['approved_by']);
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama
+            if ($jembatanDesa->foto && Storage::disk('public')->exists('foto_jembatan/' . $jembatanDesa->foto)) {
+                Storage::disk('public')->delete('foto_jembatan/' . $jembatanDesa->foto);
+            }
+        
+            // Simpan foto baru
+            $filename = time() . '_' . uniqid() . '.' . $request->foto->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('foto_jembatan', $request->file('foto'), $filename);
+            $data['foto'] = $filename;
+        }
+
+        $jembatanDesa->update($data);
 
         return Redirect::route('superadmin.jembatan-desa.index')
-            ->with('success', 'JembatanDesa updated successfully');
+            ->with('success', 'Data jembatan berhasil diperbarui.');
     }
 
     public function destroy($id): RedirectResponse
     {
-        JembatanDesa::find($id)->delete();
+        $jembatanDesa = JembatanDesa::findOrFail($id);
+
+        if ($jembatanDesa->foto && Storage::exists('public/foto_jembatan/' . $jembatanDesa->foto)) {
+            Storage::delete('public/foto_jembatan/' . $jembatanDesa->foto);
+        }
+
+        $jembatanDesa->delete();
 
         return Redirect::route('superadmin.jembatan-desa.index')
-            ->with('success', 'JembatanDesa deleted successfully');
+            ->with('success', 'Data jembatan berhasil dihapus.');
     }
 }
