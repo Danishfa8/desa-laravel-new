@@ -4,18 +4,19 @@ namespace App\Http\Controllers\AdminDesa;
 
 use App\Http\Controllers\Controller;
 use App\Models\PendidikanDesa;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use App\Http\Requests\PendidikanDesaRequest;
 use App\Models\Desa;
+use App\Http\Requests\PendidikanDesaRequest;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
+
 
 class PendidikanDesaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /* ========== INDEX ========== */
     public function index(Request $request): View
     {
         $pendidikanDesas = PendidikanDesa::with('desa', 'rtRwDesa')->paginate();
@@ -24,75 +25,115 @@ class PendidikanDesaController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * $pendidikanDesas->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /* ========== CREATE ========== */
     public function create(): View
     {
         $pendidikanDesa = new PendidikanDesa();
-        $desas = Desa::all();
+        $desas           = Desa::all();
 
         return view('admin_desa.pendidikan-desa.create', compact('pendidikanDesa', 'desas'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /* ========== STORE ========== */
     public function store(PendidikanDesaRequest $request): RedirectResponse
     {
-        $validatedData = $request->validated();
+        $data = $request->validated();
 
-        if (request()->hasFile('foto')) {
-            $foto = request()->file('foto');
-            $fotoName = time() . '_' . $foto->getClientOriginalName();
-            $foto->storeAs('pendidikan-desa', $fotoName, 'public');
-
-            $validatedData['foto'] = 'pendidikan-desa/' . $fotoName;
+        /* ── Upload foto jika ada ── */
+        if ($request->hasFile('foto')) {
+            $filename = time() . '_' . uniqid() . '.' . $request->foto->getClientOriginalExtension();
+            Storage::disk('public')->putFileAs('foto_pendidikan', $request->file('foto'), $filename);
+            $data['foto'] = $filename;
         }
 
-        PendidikanDesa::create($validatedData);
+        PendidikanDesa::create($data);
 
         return Redirect::route('admin_desa.pendidikan-desa.index')
-            ->with('success', 'ProfileDesa berhasil dibuat dengan foto.');
+            ->with('success', 'Data Pendidikan Desa berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /* ========== SHOW ========== */
     public function show($id): View
     {
-        $pendidikanDesa = PendidikanDesa::find($id);
+        $pendidikanDesa = PendidikanDesa::with('desa', 'rtRwDesa')->findOrFail($id);
 
         return view('admin_desa.pendidikan-desa.show', compact('pendidikanDesa'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /* ========== EDIT ========== */
     public function edit($id): View
     {
-        $pendidikanDesa = PendidikanDesa::find($id);
-        $desas = Desa::all();
+        $pendidikanDesa = PendidikanDesa::findOrFail($id);
+        $desas           = Desa::all();
 
         return view('admin_desa.pendidikan-desa.edit', compact('pendidikanDesa', 'desas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(PendidikanDesaRequest $request, PendidikanDesa $pendidikanDesa): RedirectResponse
-    {
-        $pendidikanDesa->update($request->validated());
+    /* ========== UPDATE ========== */
 
-        return Redirect::route('admin_desa.pendidikan-desa.index')
-            ->with('success', 'PendidikanDesa updated successfully');
+    public function update(PendidikanDesaRequest $request, PendidikanDesa $pendidikanDesa): RedirectResponse
+{
+    if (!in_array($pendidikanDesa->status, ['Arsip', 'Rejected'])) {
+        return back()->with('error', 'Data yang sudah diajukan tidak dapat diedit.');
     }
 
+    $data = $request->validated();
+
+    // Tambahkan updated_by secara eksplisit
+    $data['updated_by'] = Auth::user()->name;
+
+
+    if ($request->hasFile('foto')) {
+        if ($pendidikanDesa->foto && Storage::disk('public')->exists('foto_pendidikan/' . $pendidikanDesa->foto)) {
+            Storage::disk('public')->delete('foto_pendidikan/' . $pendidikanDesa->foto);
+        }
+
+        $filename = time() . '_' . uniqid() . '.' . $request->foto->getClientOriginalExtension();
+        Storage::disk('public')->putFileAs('foto_pendidikan', $request->file('foto'), $filename);
+        $data['foto'] = $filename;
+    }
+
+    $pendidikanDesa->update($data);
+
+    return Redirect::route('admin_desa.pendidikan-desa.index')
+        ->with('success', 'Data Pendidikan Desa berhasil diperbarui.');
+}
+
+
+    /* ========== DESTROY ========== */
     public function destroy($id): RedirectResponse
     {
-        PendidikanDesa::find($id)->delete();
+        $pendidikanDesa = PendidikanDesa::findOrFail($id);
+
+        /* Batasi hapus hanya untuk status Arsip / Rejected */
+        if (!in_array($pendidikanDesa->status, ['Arsip', 'Rejected'])) {
+            return back()->with('error', 'Data yang sudah diajukan tidak dapat dihapus.');
+        }
+
+        /* Hapus file foto jika ada */
+        if ($pendidikanDesa->foto && Storage::disk('public')->exists('foto_pendidikan/' . $pendidikanDesa->foto)) {
+            Storage::disk('public')->delete('foto_pendidikan/' . $pendidikanDesa->foto);
+        }
+
+        $pendidikanDesa->delete();
 
         return Redirect::route('admin_desa.pendidikan-desa.index')
-            ->with('success', 'PendidikanDesa deleted successfully');
+            ->with('success', 'Data Pendidikan Desa berhasil dihapus.');
+    }
+
+    /* ========== AJUKAN KE ADMIN KABUPATEN ========== */
+    public function ajukan($id): RedirectResponse
+    {
+        $pendidikanDesa = PendidikanDesa::findOrFail($id);
+
+        if (!in_array($pendidikanDesa->status, ['Arsip', 'Rejected'])) {
+            return back()->with('error', 'Hanya data dengan status Arsip atau Rejected yang dapat diajukan.');
+        }
+
+        $pendidikanDesa->status = 'Pending';
+        $pendidikanDesa->save();
+
+        return Redirect::route('admin_desa.pendidikan-desa.index')
+            ->with('success', 'Data berhasil diajukan ke Admin Kabupaten.');
     }
 }

@@ -54,17 +54,16 @@
                                             <td>{{ $pendidikanDesa->tahun }}</td>
                                             <td>{{ $pendidikanDesa->jenis_pendidikan }}</td>
                                             <td>{{ $pendidikanDesa->status_pendidikan }}</td>
-                                            <td><img src="{{ asset('storage/' . $pendidikanDesa->foto) }}"
+                                            <td><img src="{{ asset('storage/foto_pendidikan/' . $pendidikanDesa->foto) }}"
                                                     alt="Pendidikan Desa"
                                                     style="width: 100px; height: 100px; object-fit: cover;"></td>
                                             <td>{{ $pendidikanDesa->created_by }}</td>
                                             <x-action-buttons :item="$pendidikanDesa" route-prefix="admin_desa.pendidikan-desa"
                                                 :ajukan-route="true" status-field="status" />
-
                                         </tr>
-                                        @include('layouts.partials.modal.modal_pendidikan', [
+                                        {{-- @include('layouts.partials.modal.modal_pendidikan', [
                                             'pendidikanDesa' => $pendidikanDesa,
-                                        ])
+                                        ]) --}}
                                     @endforeach
                                 </tbody>
                             </table>

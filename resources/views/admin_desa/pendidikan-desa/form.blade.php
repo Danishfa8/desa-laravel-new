@@ -82,12 +82,24 @@
             ) !!}
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="foto" class="form-label">{{ __('Foto') }}</label>
-            <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
-                value="{{ old('foto', $pendidikanDesa?->foto) }}" id="foto" placeholder="Foto" required>
-            {!! $errors->first('foto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-            <small class="text-danger">*Maks 2MB</small>
+    <label for="foto" class="form-label">{{ __('Foto') }}</label>
+
+    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
+        id="foto" placeholder="Foto"
+        @if(!isset($pendidikanDesa) || !$pendidikanDesa->foto) required @endif>
+
+    {!! $errors->first('foto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+    <small class="text-danger">*Maks 2MB</small>
+    <small class="text-muted d-block">Biarkan kosong jika tidak ingin mengganti foto</small>
+
+    @if (!empty($pendidikanDesa?->foto))
+        <div class="mt-2">
+            <img src="{{ asset('storage/foto_pendidikan/' . $pendidikanDesa->foto) }}" alt="Foto Pendidikan"
+                style="max-height: 150px; border: 1px solid #ccc;">
         </div>
+    @endif
+</div>
+
         <div class="form-group mb-2 mb20">
             <label for="latitude" class="form-label">{{ __('Latitude') }}</label>
             <input type="text" name="latitude" class="form-control @error('latitude') is-invalid @enderror"
