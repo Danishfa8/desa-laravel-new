@@ -14,7 +14,7 @@ unset($__errorArgs, $__bag); ?>">
                 <option value="">-- Pilih Desa --</option>
                 <?php $__currentLoopData = $desas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <option value="<?php echo e($item->id); ?>"
-                        <?php echo e(old('desa_id', $jembatanDesa?->desa_id) == $item->id ? 'selected' : ''); ?>>
+                        <?php echo e(old('desa_id', $pendidikanDesa?->desa_id) == $item->id ? 'selected' : ''); ?>>
                         <?php echo e($item->nama_desa); ?>
 
                     </option>
@@ -30,8 +30,8 @@ unset($__errorArgs, $__bag); ?>">
             </select>
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="nama_jembatan" class="form-label"><?php echo e(__('Nama Jembatan')); ?></label>
-            <input type="text" name="nama_jembatan" class="form-control <?php $__errorArgs = ['nama_jembatan'];
+            <label for="tahun" class="form-label"><?php echo e(__('Tahun')); ?></label>
+            <input type="number" name="tahun" class="form-control <?php $__errorArgs = ['tahun'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -39,17 +39,56 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                value="<?php echo e(old('nama_jembatan', $jembatanDesa?->nama_jembatan)); ?>" id="nama_jembatan"
-                placeholder="Nama Jembatan">
+                value="<?php echo e(old('tahun', $pendidikanDesa?->tahun)); ?>" id="tahun" placeholder="Tahun">
+            <?php echo $errors->first('tahun', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
+
+        </div>
+        <div class="form-group mb-2 mb20">
+            <label for="jenis_pendidikan" class="form-label"><?php echo e(__('Jenis Pendidikan')); ?></label>
+            <select name="jenis_pendidikan" class="form-control <?php $__errorArgs = ['jenis_pendidikan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                id="jenis_pendidikan">
+                <option value="">-- Pilih Jenis Pendidikan --</option>
+                <option value="Perpustakaan"
+                    <?php echo e(old('jenis_pendidikan', $pendidikanDesa?->jenis_pendidikan) == 'Perpustakaan' ? 'selected' : ''); ?>>
+                    Perpustakaan
+                </option>
+                <option value="SD"
+                    <?php echo e(old('jenis_pendidikan', $pendidikanDesa?->jenis_pendidikan) == 'SD' ? 'selected' : ''); ?>>
+                    SD
+                </option>
+                <option value="SMP/MTS"
+                    <?php echo e(old('jenis_pendidikan', $pendidikanDesa?->jenis_pendidikan) == 'SMP/MTS' ? 'selected' : ''); ?>>
+                    SMP/MTS
+                </option>
+                <option value="SMA/SMK/MA"
+                    <?php echo e(old('jenis_pendidikan', $pendidikanDesa?->jenis_pendidikan) == 'SMA/SMK/MA' ? 'selected' : ''); ?>>
+                    SMA/SMK/MA
+                </option>
+                <option value="Perguruan Tinggi"
+                    <?php echo e(old('jenis_pendidikan', $pendidikanDesa?->jenis_pendidikan) == 'Perguruan Tinggi' ? 'selected' : ''); ?>>
+                    Perguruan Tinggi
+                </option>
+                <option value="Pendidikan Non Formal"
+                    <?php echo e(old('jenis_pendidikan', $pendidikanDesa?->jenis_pendidikan) == 'Pendidikan Non Formal' ? 'selected' : ''); ?>>
+                    Pendidikan Non Formal
+                </option>
+            </select>
             <?php echo $errors->first(
-                'nama_jembatan',
+                'jenis_pendidikan',
                 '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
             ); ?>
 
         </div>
         <div class="form-group mb-2 mb20">
-            <label for="panjang" class="form-label"><?php echo e(__('Panjang')); ?></label>
-            <input type="number" name="panjang" class="form-control <?php $__errorArgs = ['panjang'];
+            <label for="status_pendidikan" class="form-label"><?php echo e(__('Status Pendidikan')); ?></label>
+            <select name="status_pendidikan" class="form-control <?php $__errorArgs = ['status_pendidikan'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -57,66 +96,24 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                value="<?php echo e(old('panjang', $jembatanDesa?->panjang)); ?>" id="panjang" placeholder="Panjang (Meter)">
-            <?php echo $errors->first('panjang', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
+                id="status_pendidikan">
+                <option value="">-- Pilih Status Pendidikan --</option>
+                <option value="Negeri"
+                    <?php echo e(old('status_pendidikan', $pendidikanDesa?->status_pendidikan) == 'Negeri' ? 'selected' : ''); ?>>
+                    Negeri
+                </option>
+                <option value="Swasta"
+                    <?php echo e(old('status_pendidikan', $pendidikanDesa?->status_pendidikan) == 'Swasta' ? 'selected' : ''); ?>>
+                    Swasta
+                </option>
 
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="lebar" class="form-label"><?php echo e(__('Lebar')); ?></label>
-            <input type="number" name="lebar" class="form-control <?php $__errorArgs = ['lebar'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>"
-                value="<?php echo e(old('lebar', $jembatanDesa?->lebar)); ?>" id="lebar" placeholder="Lebar (Meter)">
-            <?php echo $errors->first('lebar', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
-
-        </div>
-        <div class="form-group mb-2 mb20">
-            <label for="kondisi" class="form-label"><?php echo e(__('Kondisi')); ?></label>
-            <select name="kondisi" class="form-control <?php $__errorArgs = ['kondisi'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>" id="kondisi">
-                <option value="">-- Pilih Kondisi --</option>
-                <option value="Baik" <?php echo e(old('kondisi', $jembatanDesa?->kondisi) == 'Baik' ? 'selected' : ''); ?>>Baik
-                </option>
-                <option value="Rusak Ringan"
-                    <?php echo e(old('kondisi', $jembatanDesa?->kondisi) == 'Rusak Ringan' ? 'selected' : ''); ?>>Rusak Ringan
-                </option>
-                <option value="Rusak Berat"
-                    <?php echo e(old('kondisi', $jembatanDesa?->kondisi) == 'Rusak Berat' ? 'selected' : ''); ?>>Rusak Berat
-                </option>
             </select>
-            <?php echo $errors->first('kondisi', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
+            <?php echo $errors->first(
+                'status_pendidikan',
+                '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>',
+            ); ?>
 
         </div>
-        <div class="form-group mb-2 mb20">
-            <label for="lokasi" class="form-label"><?php echo e(__('Lokasi')); ?></label>
-            <input type="text" name="lokasi" class="form-control <?php $__errorArgs = ['lokasi'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>"
-                value="<?php echo e(old('lokasi', $jembatanDesa?->lokasi)); ?>" id="lokasi" placeholder="Lokasi">
-            <?php echo $errors->first('lokasi', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
-
-        </div>
-        <input type="hidden" name="created_by" value="<?php echo e(Auth::user()->name); ?>">
-        <input type="hidden" name="updated_by" class="form-control" value="<?php echo e($kelembagaanDesa->updated_by ?? '-'); ?>">
-        <input type="hidden" name="status" class="form-control" value="Approved" id="status" placeholder="Status">
-        <input type="hidden" name="approved_by" value="<?php echo e(Auth::user()->name); ?>">
-        <input type="hidden" name="approved_at" value="<?php echo e(now()->format('Y-m-d H:i:s')); ?>">
         <div class="form-group mb-2 mb20">
             <label for="latitude" class="form-label"><?php echo e(__('Latitude')); ?></label>
             <input type="text" name="latitude" class="form-control <?php $__errorArgs = ['latitude'];
@@ -127,10 +124,11 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                value="<?php echo e(old('latitude', $jembatanDesa?->latitude)); ?>" id="latitude" placeholder="Latitude">
+                value="<?php echo e(old('latitude', $pendidikanDesa?->latitude)); ?>" id="latitude" placeholder="Latitude"
+                required>
             <?php echo $errors->first('latitude', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
 
-            <small class="text-danger">*Opsional</small>
+            
         </div>
         <div class="form-group mb-2 mb20">
             <label for="longitude" class="form-label"><?php echo e(__('Longitude')); ?></label>
@@ -142,13 +140,14 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                value="<?php echo e(old('longitude', $jembatanDesa?->longitude)); ?>" id="longitude" placeholder="Longitude">
+                value="<?php echo e(old('longitude', $pendidikanDesa?->longitude)); ?>" id="longitude" placeholder="Longitude"
+                required>
             <?php echo $errors->first('longitude', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>'); ?>
 
-            <small class="text-danger">*Opsional</small>
+            
         </div>
         <div class="form-group mb-2 mb20">
-    <label for="foto" class="form-label"><?php echo e(__('Foto Jembatan')); ?></label>
+    <label for="foto" class="form-label"><?php echo e(__('Foto')); ?></label>
     <input type="file" name="foto" id="foto" accept="image/*"
         class="form-control <?php $__errorArgs = ['foto'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -158,9 +157,9 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-        <?php echo e(isset($jembatanDesa->id) ? '' : 'required'); ?>>
-        <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB.</small>
-        <?php $__errorArgs = ['foto'];
+        <?php echo e(request()->routeIs('admin_desa.pendidikan-desa.create') ? 'required' : ''); ?>>
+    <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB.</small>
+    <?php $__errorArgs = ['foto'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -169,20 +168,21 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
 
-    <?php if(!empty($jembatanDesa?->foto)): ?>
+    <?php if(!empty($pendidikanDesa?->foto)): ?>
         <div class="mt-2">
-            <p class="mb-1">Foto saat ini:</p>
-            <img src="<?php echo e(asset('storage/foto_jembatan/' . $jembatanDesa->foto)); ?>"
-                 alt="Foto Jembatan"
-                 class="img-thumbnail" style="max-height: 200px;">
+            <img src="<?php echo e(asset('storage/foto_pendidikan/' . $pendidikanDesa->foto)); ?>" alt="Foto Pendidikan"
+                style="max-height: 150px; border: 1px solid #ccc;">
         </div>
     <?php endif; ?>
 </div>
 
+        <input type="hidden" name="created_by" value="<?php echo e(Auth::user()->name); ?>">
+        <input type="hidden" name="updated_by" class="form-control" value="<?php echo e($kelembagaanDesa->updated_by ?? '-'); ?>">
+        <input type="hidden" name="status" class="form-control" value="Arsip" id="status" placeholder="Status">
 
     </div>
     <div class="col-md-12 mt20 mt-2">
         <button type="submit" class="btn btn-primary"><?php echo e(__('Submit')); ?></button>
     </div>
 </div>
-<?php /**PATH C:\Users\Administrator\Documents\project\desa-laravel-new\resources\views/superadmin/jembatan-desa/form.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Administrator\Documents\project\desa-laravel-new\resources\views/admin_desa/pendidikan-desa/form.blade.php ENDPATH**/ ?>

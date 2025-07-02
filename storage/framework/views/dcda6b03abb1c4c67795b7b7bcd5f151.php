@@ -1,0 +1,1 @@
+<?php /**PATH C:\Users\Administrator\Documents\project\desa-laravel-new\resources\views/pdf/bab1-profile.blade.php ENDPATH**/ ?>

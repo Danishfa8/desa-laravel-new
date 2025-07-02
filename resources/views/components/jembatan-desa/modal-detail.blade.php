@@ -17,6 +17,8 @@
              class="img-fluid rounded shadow-sm"
              style="max-height: 300px;">
     </div>
+    @else
+          <div class="text-center text-gray-500 mb-3 italic">Tidak ada foto</div>
 @endif
 
 
