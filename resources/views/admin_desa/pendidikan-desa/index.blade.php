@@ -27,6 +27,7 @@
                                     <th>RT/RW</th>
                                     <th>Tahun</th>
                                     <th>Jenis</th>
+                                    <th>Nama Pendidikan</th>
                                     <th>Status</th>
                                     <th>Foto</th>
                                     <th>Created By</th>
@@ -41,6 +42,7 @@
                                         <td>{{ optional($pendidikanDesa->rtRwDesa)->rt ?? '-' }}/{{ optional($pendidikanDesa->rtRwDesa)->rw ?? '-' }}</td>
                                         <td>{{ $pendidikanDesa->tahun }}</td>
                                         <td>{{ $pendidikanDesa->jenis_pendidikan }}</td>
+                                        <td>{{ $pendidikanDesa->nama_pendidikan }}</td>
                                         <td>{{ $pendidikanDesa->status_pendidikan }}</td>
                                         <td>
                                             @if ($pendidikanDesa->foto)

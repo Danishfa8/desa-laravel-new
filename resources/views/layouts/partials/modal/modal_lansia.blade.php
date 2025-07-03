@@ -131,7 +131,6 @@
                         </form>
                     </div>
 
-
                     <script>
                         document.getElementById('approval_status{{ $lansiaDesa->id }}').addEventListener('change', function() {
                             const rejectContainer = document.getElementById('reject_reason_container{{ $lansiaDesa->id }}');
@@ -161,7 +160,6 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

@@ -36,7 +36,7 @@
                                         <th>Desa</th>
                                         <th>RT/RW</th>
                                         <th>Tahun</th>
-                                        <th>Jenis Balita</th>
+                                        <th>Jumlah Balita</th>
                                         <th>Created By</th>
                                         <th></th>
                                     </tr>
@@ -45,11 +45,10 @@
                                     @foreach ($balitaDesas as $balitaDesa)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-
                                             <td>{{ $balitaDesa->desa->nama_desa }}</td>
                                             <td>{{ $balitaDesa->rtRwDesa->rt }}/{{ $balitaDesa->rtRwDesa->rw }}</td>
                                             <td>{{ $balitaDesa->tahun }}</td>
-                                            <td>{{ $balitaDesa->jenis_balita }}</td>
+                                            <td>{{ $balitaDesa->jumlah_balita }}</td>
                                             <td>{{ $balitaDesa->created_by }}</td>
                                             <x-action-buttons :item="$balitaDesa" route-prefix="admin_desa.balita-desa"
                                                 :ajukan-route="true" status-field="status" />
@@ -60,7 +59,6 @@
                             </table>
                         </div>
                         @include('layouts.pagination', ['paginator' => $balitaDesas])
-
                     </div>
                 </div>
             </div>

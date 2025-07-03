@@ -156,7 +156,8 @@ if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>">
+unset($__errorArgs, $__bag); ?>"
+                <?php echo e(isset($jembatanDesa->id) ? '' : 'required'); ?>>
             <small class="text-muted">Format: jpg, jpeg, png. Maksimal 2MB.</small>
             <?php $__errorArgs = ['foto'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

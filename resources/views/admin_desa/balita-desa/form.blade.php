@@ -27,13 +27,9 @@
             {!! $errors->first('tahun', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <label for="jenis_balita" class="form-label">{{ __('Jenis Balita') }}</label>
-        <select name="jenis_balita" class="form-control @error('jenis_balita') is-invalid @enderror" id="jenis_balita">
-            <option value="">-- Pilih Jenis Balita --</option>
-            <option value="jumlah_balita"
-                {{ old('jenis_balita', $balitaDesa?->jenis_balita) == 'jumlah_balita' ? 'selected' : '' }}>
-                jumlah_balita
-            </option>
-        </select>
+        <input type="number" name="jumlah_balita" class="form-control @error('jumlah_balita') is-invalid @enderror"
+                value="{{ old('jumlah_balita', $balitaDesa?->jumlah_balita) }}" id="jumlah_balita" placeholder="Jumlah Balita">
+            {!! $errors->first('jumlah_balita', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         {!! $errors->first('jenis_balita', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
     </div>
     <input type="hidden" name="created_by" value="{{ Auth::user()->name }}">

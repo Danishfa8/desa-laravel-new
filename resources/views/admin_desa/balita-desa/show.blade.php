@@ -19,7 +19,7 @@
                     </div>
 
                     <div class="card-body bg-white">
-                        
+
                                 <div class="form-group mb-2 mb20">
                                     <strong>Desa Id:</strong>
                                     {{ $balitaDesa->desa_id }}
@@ -33,8 +33,8 @@
                                     {{ $balitaDesa->tahun }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Jenis Balita:</strong>
-                                    {{ $balitaDesa->jenis_balita }}
+                                    <strong>Jumlah Balita:</strong>
+                                    {{ $balitaDesa->jumlah_balita }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
                                     <strong>Created By:</strong>

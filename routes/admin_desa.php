@@ -85,6 +85,7 @@ Route::middleware(['auth', 'role:admin_desa'])->prefix('admin_desa')->name('admi
     Route::resource('sarana-pendukung-kesehatan-desa', SaranaPendukungKesehatanDesaController::class);
     Route::resource('sarana-ibadah-desa', SaranaIbadahDesaController::class);
     Route::resource('sarana-lainya-desa', SaranaLainyaDesaController::class);
+    
 
     // Ekonomi
     Route::resource('ekonomi', EkonomiController::class);

@@ -82,7 +82,16 @@
             <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
                 value="{{ old('foto', $saranaIbadahDesa?->foto) }}" id="foto" placeholder="Foto" required>
             {!! $errors->first('foto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+            @if (isset($saranaIbadahDesa->foto))
+                            <div class="mt-2">
+                                <img src="{{ asset('storage/sarana-ibadah-desa/' . $saranaIbadahDesa->foto) }}" alt="Foto Sarana Ibadah"
+                                    style="max-height: 150px; border: 1px solid #ccc;">
+                            </div>
+                      @endif
+
         </div>
+
+
         <div class="form-group mb-2 mb20">
             <label for="latitude" class="form-label">{{ __('Latitude') }}</label>
             <input type="text" name="latitude" class="form-control @error('latitude') is-invalid @enderror"

@@ -1,6 +1,5 @@
 <div class="row padding-1 p-1">
     <div class="col-md-12">
-
         <div class="form-group mb-2 mb20">
             <label for="desa_id" class="form-label">{{ __('Desa') }}</label>
             <select name="desa_id" id="desa_id" class="form-control select2 @error('desa_id') is-invalid @enderror">
@@ -62,6 +61,15 @@
             ) !!}
         </div>
         <div class="form-group mb-2 mb20">
+    <label for="nama_pendidikan" class="form-label">{{ __('Nama Sekolah/Pendidikan') }}</label>
+    <input type="text" name="nama_pendidikan" id="nama_pendidikan"
+    class="form-control @error('nama_pendidikan') is-invalid @enderror"
+    value="{{ old('nama_pendidikan', $pendidikanDesa?->nama_pendidikan) }}"
+    placeholder="Contoh: SD Negeri 1 Slawi" required>
+    {!! $errors->first('nama_pendidikan', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+</div>
+
+        <div class="form-group mb-2 mb20">
             <label for="status_pendidikan" class="form-label">{{ __('Status Pendidikan') }}</label>
             <select name="status_pendidikan" class="form-control @error('status_pendidikan') is-invalid @enderror"
                 id="status_pendidikan">
@@ -82,28 +90,6 @@
             ) !!}
         </div>
         <div class="form-group mb-2 mb20">
-<<<<<<< HEAD
-    <label for="foto" class="form-label">{{ __('Foto') }}</label>
-
-    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
-        id="foto" placeholder="Foto"
-        @if(!isset($pendidikanDesa) || !$pendidikanDesa->foto) required @endif>
-
-    {!! $errors->first('foto', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-    <small class="text-danger">*Maks 2MB</small>
-    <small class="text-muted d-block">Biarkan kosong jika tidak ingin mengganti foto</small>
-
-    @if (!empty($pendidikanDesa?->foto))
-        <div class="mt-2">
-            <img src="{{ asset('storage/foto_pendidikan/' . $pendidikanDesa->foto) }}" alt="Foto Pendidikan"
-                style="max-height: 150px; border: 1px solid #ccc;">
-        </div>
-    @endif
-</div>
-
-        <div class="form-group mb-2 mb20">
-=======
->>>>>>> b6a6838bdac0b748db5828ffaaf444ff1e1ab06b
             <label for="latitude" class="form-label">{{ __('Latitude') }}</label>
             <input type="text" name="latitude" class="form-control @error('latitude') is-invalid @enderror"
                 value="{{ old('latitude', $pendidikanDesa?->latitude) }}" id="latitude" placeholder="Latitude"
@@ -134,7 +120,6 @@
         </div>
     @endif
 </div>
-
         <input type="hidden" name="created_by" value="{{ Auth::user()->name }}">
         <input type="hidden" name="updated_by" class="form-control" value="{{ $kelembagaanDesa->updated_by ?? '-' }}">
         <input type="hidden" name="status" class="form-control" value="Arsip" id="status" placeholder="Status">

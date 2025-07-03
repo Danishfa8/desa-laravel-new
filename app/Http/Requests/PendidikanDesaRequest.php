@@ -27,6 +27,7 @@ class PendidikanDesaRequest extends FormRequest
             'tahun' => 'required|numeric',
             'jenis_pendidikan' => 'required',
             'status_pendidikan' => 'required',
+            'nama_pendidikan' => 'required|string',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'latitude' => 'required|string',
             'longitude' => 'required|string',
